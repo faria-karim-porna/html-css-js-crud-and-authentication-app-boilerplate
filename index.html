@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth + CRUD App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container" id="auth-container">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email" />
+      <input type="password" id="login-password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <p><a href="#" onclick="showForgot()">Forgot Password?</a></p>
+      <p>New user? <a href="#" onclick="showRegister()">Register</a></p>
+    </div>
+
+    <div class="container hidden" id="register-container">
+      <h2>Register</h2>
+      <input type="text" id="reg-name" placeholder="Name" />
+      <input type="email" id="reg-email" placeholder="Email" />
+      <input type="password" id="reg-password" placeholder="Password" />
+      <button onclick="register()">Sign Up</button>
+      <p>Have account? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+
+    <div class="container hidden" id="forgot-container">
+      <h2>Forgot Password</h2>
+      <input type="email" id="forgot-email" placeholder="Enter your email" />
+      <button onclick="sendReset()">Send Reset Link</button>
+      <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+    </div>
+
+    <div class="container hidden" id="reset-container">
+      <h2>Reset Password</h2>
+      <input type="email" id="reset-email" placeholder="Email" />
+      <input type="password" id="new-password" placeholder="New Password" />
+      <button onclick="resetPassword()">Reset</button>
+      <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+    </div>
+
+    <div class="container hidden" id="dashboard">
+      <h2>Welcome, <span id="username"></span>!</h2>
+      <input type="text" id="newUser" placeholder="Add user" />
+      <button onclick="addUser()">Add</button>
+      <ul id="userList"></ul>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
