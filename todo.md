@@ -6,11 +6,13 @@ Todo
 
 
 3. Make responsive
-5. Every action should show toast
-6. Show confirmation modal before deleting
+4. Cancel edit mode
+
 
 Done
 
 1. Separate pages
 2. Add bootstrap
 3. Add modal / input for edit
+4. Every action should show toast
+5. Show confirmation modal before deleting

@@ -147,14 +147,37 @@ function editUser(index) {
   const row = tbody.children[index];
   const user = currentUser.items[index];
 
+  // Store original user temporarily in the row’s dataset
+  row.dataset.original = JSON.stringify(user);
+
   // Replace text cells with input fields
   row.innerHTML = `
     <td class="align-middle">${index + 1}</td>
     <td class="align-middle"><input type="text" class="form-control form-control-sm" value="${user.name}" /></td>
     <td class="align-middle"><input type="email" class="form-control form-control-sm" value="${user.email}" /></td>
     <td class="align-middle"><input type="text" class="form-control form-control-sm" value="${user.role}" /></td>
-    <td class="align-middle">
+    <td class="align-middle d-flex gap-1">
       <button class="btn btn-sm btn-dark" onclick="saveUser(${index})">Save</button>
+      <button class="btn btn-sm btn-outline-secondary" onclick="cancelEdit(${index})">Cancel</button>
+    </td>
+  `;
+}
+
+function cancelEdit(index) {
+  const tbody = document.querySelector("#userTable tbody");
+  const row = tbody.children[index];
+
+  // Re-render the row using saved data
+  const original = JSON.parse(row.dataset.original);
+
+  row.innerHTML = `
+    <td class="align-middle">${index + 1}</td>
+    <td class="align-middle">${original.name}</td>
+    <td class="align-middle">${original.email}</td>
+    <td class="align-middle">${original.role}</td>
+    <td class="d-flex align-middle">
+      <button class="btn btn-sm btn-dark me-1" onclick="editUser(${index})">Edit</button>
+      <button class="btn btn-sm btn-outline-dark" onclick="deleteUser(${index})">Delete</button>
     </td>
   `;
 }
