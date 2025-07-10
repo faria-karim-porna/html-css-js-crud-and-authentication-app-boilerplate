@@ -41,11 +41,38 @@
     </div>
 
     <div class="container hidden" id="dashboard">
-      <h2>Welcome, <span id="username"></span>!</h2>
-      <input type="text" id="newUser" placeholder="Add user" />
-      <button onclick="addUser()">Add</button>
-      <ul id="userList"></ul>
-      <button onclick="logout()">Logout</button>
+      <!-- Navbar -->
+      <div class="navbar">
+        <div class="navbar-left">
+          <strong id="username"></strong>
+        </div>
+        <div class="navbar-right">
+          <span class="icon">🔔</span>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <!-- Form to add user -->
+      <div class="form">
+        <input type="text" id="userName" placeholder="Name" />
+        <input type="email" id="userEmail" placeholder="Email" />
+        <input type="text" id="userRole" placeholder="Role" />
+        <button onclick="addUser()">Add</button>
+      </div>
+
+      <!-- User Table -->
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
 
     <script src="script.js"></script>

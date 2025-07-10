@@ -89,41 +89,70 @@ function logout() {
 }
 
 function addUser() {
-  const name = document.getElementById("newUser").value;
-  if (!name) return;
+  const name = document.getElementById("userName").value.trim();
+  const email = document.getElementById("userEmail").value.trim();
+  const role = document.getElementById("userRole").value.trim();
+
+  if (!name || !email || !role) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
   currentUser.items = currentUser.items || [];
-  currentUser.items.push(name);
+  currentUser.items.push({ name, email, role });
   updateUser(currentUser);
   renderUsers();
-  document.getElementById("newUser").value = "";
+
+  document.getElementById("userName").value = "";
+  document.getElementById("userEmail").value = "";
+  document.getElementById("userRole").value = "";
 }
 
 function renderUsers() {
-  const list = document.getElementById("userList");
-  list.innerHTML = "";
-  (currentUser.items || []).forEach((name, idx) => {
-    const li = document.createElement("li");
-    li.textContent = name;
-    li.onclick = () => {
-      const updated = prompt("Edit name", name);
-      if (updated !== null) {
-        currentUser.items[idx] = updated;
-        updateUser(currentUser);
-        renderUsers();
-      }
-    };
-    const del = document.createElement("button");
-    del.textContent = "🗑️";
-    del.style.float = "right";
-    del.onclick = (e) => {
-      e.stopPropagation();
-      currentUser.items.splice(idx, 1);
-      updateUser(currentUser);
-      renderUsers();
-    };
-    li.appendChild(del);
-    list.appendChild(li);
+  const tbody = document.querySelector("#userTable tbody");
+  tbody.innerHTML = "";
+
+  (currentUser.items || []).forEach((user, index) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td>${user.role}</td>
+      <td>
+        <button class="edit-btn" onclick="editUser(${index})">Edit</button>
+        <button class="delete-btn" onclick="deleteUser(${index})">Delete</button>
+      </td>
+    `;
+
+    tbody.appendChild(row);
   });
+}
+
+function editUser(index) {
+  const user = currentUser.items[index];
+  const newName = prompt("Edit Name:", user.name);
+  const newEmail = prompt("Edit Email:", user.email);
+  const newRole = prompt("Edit Role:", user.role);
+
+  if (newName && newEmail && newRole) {
+    currentUser.items[index] = {
+      name: newName,
+      email: newEmail,
+      role: newRole,
+    };
+    updateUser(currentUser);
+    renderUsers();
+  }
+}
+
+function deleteUser(index) {
+  if (confirm("Are you sure to delete this user?")) {
+    currentUser.items.splice(index, 1);
+    updateUser(currentUser);
+    renderUsers();
+  }
 }
 
 function updateUser(updated) {
