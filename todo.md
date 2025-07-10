@@ -5,11 +5,6 @@
 Todo
 
 
-3. Make responsive
-4. Cancel edit mode
-5. Made the column size equal in every case
-
-
 Done
 
 1. Separate pages
@@ -17,3 +12,6 @@ Done
 3. Add modal / input for edit
 4. Every action should show toast
 5. Show confirmation modal before deleting
+6. Make responsive
+7. Cancel edit mode
+8. Made the column size equal in every case
