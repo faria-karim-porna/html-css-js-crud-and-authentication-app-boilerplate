@@ -1,17 +1,29 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
 
-function showToast(message, type = "primary") {
+function showToast(message, type = "info") {
   const toastEl = document.getElementById("toast");
   const toastBody = document.getElementById("toast-body");
 
-  // Set message and type
+  // Set message and styling
   toastBody.innerText = message;
-  toastEl.className = `toast align-items-center text-bg-${type} border-0`;
+  toastEl.className = `toast d-flex justify-content-center align-items-center text-bg-${type === "error" ? "secondary" : "dark"} border-0`;
 
-  // Create and show toast
-  const toast = new bootstrap.Toast(toastEl);
-  toast.show();
+  // Show with slide-fade animation
+  setTimeout(() => {
+    toastEl.classList.add("show");
+  }, 10); // tiny delay to trigger CSS transition
+
+  // Hide after 1.5s
+  setTimeout(() => {
+    toastEl.classList.add("hideing");
+    toastEl.classList.remove("show");
+
+    // Fully hide it after transition ends (cleanup)
+    setTimeout(() => {
+      toastEl.classList.remove("hideing");
+    }, 400); // match CSS transition time
+  }, 1500);
 }
 
 // ---------- Register ----------
@@ -21,7 +33,7 @@ function register() {
   const password = document.getElementById("reg-password").value;
 
   if (users.find((u) => u.email === email)) {
-    alert("User already exists!");
+    showToast("User already exists!", "error");
     return;
   }
 
@@ -40,8 +52,9 @@ function login() {
   if (user) {
     localStorage.setItem("currentUser", JSON.stringify(user));
     window.location.href = "dashboard.html";
+    showToast(`Welcome ${user.name}!`);
   } else {
-    alert("Invalid credentials");
+    showToast("Invalid credentials", "error");
   }
 }
 
@@ -50,10 +63,10 @@ function sendReset() {
   const email = document.getElementById("forgot-email").value;
   const user = users.find((u) => u.email === email);
   if (user) {
-    alert("Reset link sent (simulated). Go to Reset Password page.");
+    showToast("Reset link sent (simulated). Go to Reset Password page.");
     window.location.href = "reset.html";
   } else {
-    alert("Email not found.");
+    showToast("Email not found.", "error");
   }
 }
 
@@ -65,10 +78,10 @@ function resetPassword() {
   if (user) {
     user.password = newPassword;
     localStorage.setItem("users", JSON.stringify(users));
-    alert("Password reset successful!");
+    showToast("Password reset successful!");
     window.location.href = "login.html";
   } else {
-    alert("Email not found.");
+    showToast("Email not found.", "error");
   }
 }
 
@@ -86,6 +99,7 @@ function showDashboard() {
 function logout() {
   localStorage.removeItem("currentUser");
   window.location.href = "login.html";
+  showToast("Logged out successfully");
 }
 
 function addUser() {
@@ -153,7 +167,7 @@ function saveUser(index) {
   const role = row.children[3].querySelector("input").value.trim();
 
   if (!name || !email || !role) {
-    alert("All fields are required.");
+    showToast("All fields are required.", "error");
     return;
   }
 

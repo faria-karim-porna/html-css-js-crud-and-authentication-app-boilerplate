@@ -41,3 +41,20 @@ li {
   border: 1px solid #111;
   box-shadow: none;
 }
+
+/* Custom slide + fade animation */
+.toast {
+  transition: all 0.4s ease;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.hideing {
+  transform: translateY(30px);
+  opacity: 0;
+}

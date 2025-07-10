@@ -7,6 +7,7 @@ Todo
 
 3. Make responsive
 5. Every action should show toast
+6. Show confirmation modal before deleting
 
 Done
 
