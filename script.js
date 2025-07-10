@@ -99,11 +99,11 @@ function renderUsers() {
   (currentUser.items || []).forEach((u, i) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-    <td>${i + 1}</td>
-    <td>${u.name}</td>
-    <td>${u.email}</td>
-    <td>${u.role}</td>
-    <td class="d-flex">
+    <td class="align-middle">${i + 1}</td>
+    <td class="align-middle">${u.name}</td>
+    <td class="align-middle">${u.email}</td>
+    <td class="align-middle">${u.role}</td>
+    <td class="d-flex align-middle">
       <button class="btn btn-sm btn-dark me-1" onclick="editUser(${i})">Edit</button>
       <button class="btn btn-sm btn btn-outline-dark" onclick="deleteUser(${i})">Delete</button>
     </td>
@@ -113,16 +113,38 @@ function renderUsers() {
 }
 
 function editUser(index) {
-  const u = currentUser.items[index];
-  const name = prompt("Edit name:", u.name);
-  const email = prompt("Edit email:", u.email);
-  const role = prompt("Edit role:", u.role);
+  const tbody = document.querySelector("#userTable tbody");
+  const row = tbody.children[index];
+  const user = currentUser.items[index];
 
-  if (name && email && role) {
-    currentUser.items[index] = { name, email, role };
-    updateUser(currentUser);
-    renderUsers();
+  // Replace text cells with input fields
+  row.innerHTML = `
+    <td class="align-middle">${index + 1}</td>
+    <td class="align-middle"><input type="text" class="form-control form-control-sm" value="${user.name}" /></td>
+    <td class="align-middle"><input type="email" class="form-control form-control-sm" value="${user.email}" /></td>
+    <td class="align-middle"><input type="text" class="form-control form-control-sm" value="${user.role}" /></td>
+    <td class="align-middle">
+      <button class="btn btn-sm btn-dark" onclick="saveUser(${index})">Save</button>
+    </td>
+  `;
+}
+
+function saveUser(index) {
+  const tbody = document.querySelector("#userTable tbody");
+  const row = tbody.children[index];
+
+  const name = row.children[1].querySelector("input").value.trim();
+  const email = row.children[2].querySelector("input").value.trim();
+  const role = row.children[3].querySelector("input").value.trim();
+
+  if (!name || !email || !role) {
+    alert("All fields are required.");
+    return;
   }
+
+  currentUser.items[index] = { name, email, role };
+  updateUser(currentUser);
+  renderUsers();
 }
 
 function deleteUser(index) {
