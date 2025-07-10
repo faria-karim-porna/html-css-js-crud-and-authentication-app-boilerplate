@@ -1,6 +1,19 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
 
+function showToast(message, type = "primary") {
+  const toastEl = document.getElementById("toast");
+  const toastBody = document.getElementById("toast-body");
+
+  // Set message and type
+  toastBody.innerText = message;
+  toastEl.className = `toast align-items-center text-bg-${type} border-0`;
+
+  // Create and show toast
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
+}
+
 // ---------- Register ----------
 function register() {
   const name = document.getElementById("reg-name").value;
@@ -14,7 +27,7 @@ function register() {
 
   users.push({ name, email, password, items: [] });
   localStorage.setItem("users", JSON.stringify(users));
-  alert("Registered successfully!");
+  showToast("Registered Successfully!!", "success");
   window.location.href = "login.html";
 }
 
@@ -90,6 +103,8 @@ function addUser() {
   document.getElementById("userName").value = "";
   document.getElementById("userEmail").value = "";
   document.getElementById("userRole").value = "";
+
+  showToast("User added successfully", "success");
 }
 
 function renderUsers() {
@@ -145,14 +160,14 @@ function saveUser(index) {
   currentUser.items[index] = { name, email, role };
   updateUser(currentUser);
   renderUsers();
+  showToast("User updated successfully", "info");
 }
 
 function deleteUser(index) {
-  if (confirm("Are you sure?")) {
-    currentUser.items.splice(index, 1);
-    updateUser(currentUser);
-    renderUsers();
-  }
+  currentUser.items.splice(index, 1);
+  updateUser(currentUser);
+  renderUsers();
+  showToast("User deleted successfully", "danger");
 }
 
 function updateUser(updated) {
