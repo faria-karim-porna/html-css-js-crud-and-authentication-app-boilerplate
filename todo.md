@@ -4,7 +4,7 @@
 
 Todo
 
-2. Add bootstrap
+
 3. Make responsive
 4. Add modal / input for edit
 5. Every action should show toast
@@ -12,3 +12,4 @@ Todo
 Done
 
 1. Separate pages
+2. Add bootstrap

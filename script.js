@@ -103,9 +103,9 @@ function renderUsers() {
     <td>${u.name}</td>
     <td>${u.email}</td>
     <td>${u.role}</td>
-    <td>
-      <button class="btn btn-sm btn-primary me-1" onclick="editUser(${i})">Edit</button>
-      <button class="btn btn-sm btn-danger" onclick="deleteUser(${i})">Delete</button>
+    <td class="d-flex">
+      <button class="btn btn-sm btn-dark me-1" onclick="editUser(${i})">Edit</button>
+      <button class="btn btn-sm btn btn-outline-dark" onclick="deleteUser(${i})">Delete</button>
     </td>
 `;
     tbody.appendChild(row);
