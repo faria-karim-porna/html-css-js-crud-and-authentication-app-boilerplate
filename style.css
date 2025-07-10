@@ -58,3 +58,11 @@ li {
   transform: translateY(30px);
   opacity: 0;
 }
+
+.modal-dialog {
+  max-width: 350px;
+}
+
+.modal-body {
+  height: 120px;
+}

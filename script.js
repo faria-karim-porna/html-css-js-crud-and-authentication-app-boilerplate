@@ -1,5 +1,6 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+let deleteIndex = null;
 
 function showToast(message, type = "info") {
   const toastEl = document.getElementById("toast");
@@ -178,10 +179,26 @@ function saveUser(index) {
 }
 
 function deleteUser(index) {
-  currentUser.items.splice(index, 1);
-  updateUser(currentUser);
-  renderUsers();
-  showToast("User deleted successfully", "danger");
+  deleteIndex = index;
+
+  // Show modal
+  const modal = new bootstrap.Modal(document.getElementById("confirmDeleteModal"));
+  modal.show();
+}
+
+function confirmDeleteUser(index) {
+  if (deleteIndex !== null) {
+    currentUser.items.splice(deleteIndex, 1);
+    updateUser(currentUser);
+    renderUsers();
+    showToast("User deleted successfully");
+    deleteIndex = null;
+  }
+
+  // Hide modal manually
+  const modalEl = document.getElementById("confirmDeleteModal");
+  const modal = bootstrap.Modal.getInstance(modalEl);
+  modal.hide();
 }
 
 function updateUser(updated) {
