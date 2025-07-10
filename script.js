@@ -99,15 +99,15 @@ function renderUsers() {
   (currentUser.items || []).forEach((u, i) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${i + 1}</td>
-      <td>${u.name}</td>
-      <td>${u.email}</td>
-      <td>${u.role}</td>
-      <td>
-        <button class="edit-btn" onclick="editUser(${i})">Edit</button>
-        <button class="delete-btn" onclick="deleteUser(${i})">Delete</button>
-      </td>
-    `;
+    <td>${i + 1}</td>
+    <td>${u.name}</td>
+    <td>${u.email}</td>
+    <td>${u.role}</td>
+    <td>
+      <button class="btn btn-sm btn-primary me-1" onclick="editUser(${i})">Edit</button>
+      <button class="btn btn-sm btn-danger" onclick="deleteUser(${i})">Delete</button>
+    </td>
+`;
     tbody.appendChild(row);
   });
 }
