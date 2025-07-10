@@ -129,15 +129,17 @@ function renderUsers() {
   (currentUser.items || []).forEach((u, i) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-    <td class="align-middle">${i + 1}</td>
-    <td class="align-middle">${u.name}</td>
-    <td class="align-middle">${u.email}</td>
-    <td class="align-middle">${u.role}</td>
-    <td class="d-flex align-middle">
-      <button class="btn btn-sm btn-dark me-1" onclick="editUser(${i})">Edit</button>
-      <button class="btn btn-sm btn btn-outline-dark" onclick="deleteUser(${i})">Delete</button>
-    </td>
-`;
+      <td class="align-middle" style="width: 5%;">${i + 1}</td>
+      <td class="align-middle" style="width: 25%;">${u.name}</td>
+      <td class="align-middle" style="width: 30%;">${u.email}</td>
+      <td class="align-middle" style="width: 20%;">${u.role}</td>
+      <td class="align-middle" style="width: 20%;">
+        <div class="d-flex gap-1">
+          <button class="btn btn-sm btn-dark" onclick="editUser(${i})">Edit</button>
+          <button class="btn btn-sm btn-outline-dark" onclick="deleteUser(${i})">Delete</button>
+        </div>
+      </td>
+    `;
     tbody.appendChild(row);
   });
 }
@@ -147,18 +149,18 @@ function editUser(index) {
   const row = tbody.children[index];
   const user = currentUser.items[index];
 
-  // Store original user temporarily in the row’s dataset
   row.dataset.original = JSON.stringify(user);
 
-  // Replace text cells with input fields
   row.innerHTML = `
-    <td class="align-middle">${index + 1}</td>
-    <td class="align-middle"><input type="text" class="form-control form-control-sm" value="${user.name}" /></td>
-    <td class="align-middle"><input type="email" class="form-control form-control-sm" value="${user.email}" /></td>
-    <td class="align-middle"><input type="text" class="form-control form-control-sm" value="${user.role}" /></td>
-    <td class="align-middle d-flex gap-1">
-      <button class="btn btn-sm btn-dark" onclick="saveUser(${index})">Save</button>
-      <button class="btn btn-sm btn-outline-secondary" onclick="cancelEdit(${index})">Cancel</button>
+    <td class="align-middle" style="width: 5%;">${index + 1}</td>
+    <td class="align-middle" style="width: 25%;"><input type="text" class="form-control form-control-sm" value="${user.name}" /></td>
+    <td class="align-middle" style="width: 30%;"><input type="email" class="form-control form-control-sm" value="${user.email}" /></td>
+    <td class="align-middle" style="width: 20%;"><input type="text" class="form-control form-control-sm" value="${user.role}" /></td>
+    <td class="align-middle" style="width: 20%;">
+      <div class="d-flex gap-1">
+        <button class="btn btn-sm btn-dark" onclick="saveUser(${index})">Save</button>
+        <button class="btn btn-sm btn-outline-secondary" onclick="cancelEdit(${index})">Cancel</button>
+      </div>
     </td>
   `;
 }
@@ -171,13 +173,15 @@ function cancelEdit(index) {
   const original = JSON.parse(row.dataset.original);
 
   row.innerHTML = `
-    <td class="align-middle">${index + 1}</td>
-    <td class="align-middle">${original.name}</td>
-    <td class="align-middle">${original.email}</td>
-    <td class="align-middle">${original.role}</td>
-    <td class="d-flex align-middle">
-      <button class="btn btn-sm btn-dark me-1" onclick="editUser(${index})">Edit</button>
-      <button class="btn btn-sm btn-outline-dark" onclick="deleteUser(${index})">Delete</button>
+    <td class="align-middle" style="width: 5%;">${index + 1}</td>
+    <td class="align-middle" style="width: 25%;">${original.name}</td>
+    <td class="align-middle" style="width: 30%;">${original.email}</td>
+    <td class="align-middle" style="width: 20%;">${original.role}</td>
+    <td class="align-middle" style="width: 20%;">
+      <div class="d-flex gap-1">
+        <button class="btn btn-sm btn-dark" onclick="editUser(${index})">Edit</button>
+        <button class="btn btn-sm btn-outline-dark" onclick="deleteUser(${index})">Delete</button>
+      </div>
     </td>
   `;
 }

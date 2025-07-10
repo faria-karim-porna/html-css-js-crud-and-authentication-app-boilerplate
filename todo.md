@@ -7,6 +7,7 @@ Todo
 
 3. Make responsive
 4. Cancel edit mode
+5. Made the column size equal in every case
 
 
 Done
